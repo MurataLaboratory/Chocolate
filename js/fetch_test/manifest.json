@@ -1,0 +1,20 @@
+{
+
+    "manifest_version": 2,
+    "name": "fetchTest",
+    "version": "1.0",
+   
+    "description": "fetch test.",
+    
+    "icons": {
+      "48": "icons/border-48.png"
+    },
+  
+    "content_scripts": [
+      {
+        "matches": ["*://*.mozilla.org/*"],
+        "js": ["fetch_test.js"]
+      }
+    ]
+  
+  }
