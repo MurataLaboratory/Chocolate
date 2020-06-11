@@ -8,6 +8,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "electron-tabs": "^0.15.0"
+  }
 }
-

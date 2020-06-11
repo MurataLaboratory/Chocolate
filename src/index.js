@@ -20,11 +20,11 @@ app.on('ready', function() {
     width: 1400, 
     height: 800,
     'webPreferences': {
+      'nodeIntegration': true,
       'webviewTag': true
     }
   });
   mainWindow.loadURL('file://' + __dirname + '/index.html')
-  
   //mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.executeJavaScript(`
@@ -33,6 +33,11 @@ app.on('ready', function() {
       console.log(copied);
     })
   `)
+
+  mainWindow.on('ready-to-show', function () {
+    mainWindow.show();
+    mainWindow.focus();
+  });
 
   mainWindow.on('closed', function() {
     mainWindow = null;
