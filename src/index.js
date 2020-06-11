@@ -16,10 +16,16 @@ app.on('window-all-closed', function() {
 // Close処理を行う
 app.on('ready', function() {
   // 画面表示
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({
+    width: 1400, 
+    height: 800,
+    'webPreferences': {
+      'webviewTag': true
+    }
+  });
   mainWindow.loadURL('file://' + __dirname + '/index.html')
   
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.executeJavaScript(`
     document.addEventListener("copy", e => {
