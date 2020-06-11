@@ -1,0 +1,22 @@
+{
+  "name": "chocolate",
+  "version": "1.0.0",
+  "description": "nlp software",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MurataLaboratory/Chocolate.git"
+  },
+  "author": "Papillon6814",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MurataLaboratory/Chocolate/issues"
+  },
+  "homepage": "https://github.com/MurataLaboratory/Chocolate#readme",
+  "devDependencies": {
+    "electron": "^9.0.3"
+  }
+}
