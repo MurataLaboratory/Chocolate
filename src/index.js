@@ -1,6 +1,7 @@
 // Electronの読み込み
 var electron = require('electron');
 var app = electron.app;
+var ipc = electron.ipcMain;
 var BrowserWindow = electron.BrowserWindow;
 const globalShortcut = electron.globalShortcut;
 const dialog = electron.dialog;
@@ -17,10 +18,6 @@ app.on('window-all-closed', function() {
 // 画面を表示．index.htmlを読み込む
 // Close処理を行う
 app.on('ready', function() {
-  globalShortcut.register('Command+T', () => {
-    dialog.showErrorBox("OMG", "CMD+T IS PRESSED");
-  });
-
   // 画面表示
   mainWindow = new BrowserWindow({
     width: 1400, 
@@ -31,7 +28,7 @@ app.on('ready', function() {
     }
   });
   mainWindow.loadURL('file://' + __dirname + '/index.html')
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.executeJavaScript(`
     document.addEventListener("copy", e => {
@@ -47,6 +44,24 @@ app.on('ready', function() {
 
   mainWindow.on('closed', function() {
     mainWindow = null;
+  });
+
+  globalShortcut.register('Command+T', () => {
+    //dialog.showErrorBox("OMG", "CMD+T IS PRESSED");
+    // tabGroup.addTab({
+    //   title: 'Google',
+    //   src: 'http://google.com',
+    // });
+  });
+
+  globalShortcut.register('Command+N', () => {
+    mainWindow.webContents.executeJavaScript(`
+      require('electron').ipcRenderer.send('gpu', document.body.innerHTML);
+    `);
+  });
+
+  ipc.on('gpu', (_, gpu) => {
+    dialog.showMessageBox("a", "A");
   });
 });
 

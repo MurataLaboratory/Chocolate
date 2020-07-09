@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/MurataLaboratory/Chocolate#readme",
   "devDependencies": {
-    "electron": "^9.0.3"
+    "electron": "^9.1.0"
   },
   "dependencies": {
     "electron-tabs": "^0.15.0"
