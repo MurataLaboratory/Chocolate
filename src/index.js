@@ -1,10 +1,10 @@
 // Electronの読み込み
 var electron = require('electron');
 var app = electron.app;
-var ipc = electron.ipcMain;
+var ipcMain = electron.ipcMain;
+
 var BrowserWindow = electron.BrowserWindow;
 const localShortcut = require('electron-localshortcut');
-const globalShortcut = electron.globalShortcut;
 const dialog = electron.dialog;
 
 // mainWindow変数の初期化
@@ -29,7 +29,7 @@ app.on('ready', function() {
     }
   });
   mainWindow.loadURL('file://' + __dirname + '/index.html')
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.executeJavaScript(`
     document.addEventListener("copy", e => {
@@ -41,11 +41,19 @@ app.on('ready', function() {
   mainWindow.on('ready-to-show', function () {
     mainWindow.show();
     mainWindow.focus();
+    mainWindow.webContents.executeJavaScript(`
+      require('electron').ipcRenderer.send('gpu', document.body.innerHTML);
+    `);
   });
 
   mainWindow.on('closed', function() {
     mainWindow = null;
   });
+
+  localShortcut.register(mainWindow, 'Command+O', () => {
+    dialog.showMessageBox("dev", "opened dev tools");
+    mainWindow.webContents.openDevTools()
+  })
 
   localShortcut.register(mainWindow, 'Command+Q', () => {
     app.quit()
@@ -53,12 +61,12 @@ app.on('ready', function() {
 
   localShortcut.register(mainWindow, 'Command+N', () => {
     mainWindow.webContents.executeJavaScript(`
-      require('electron').ipcRenderer.send('gpu', document.body.innerHTML);
+      require('electron').ipcRenderer.send('innerHTML', document.body.innerHTML);
     `);
   });
 
-  ipc.on('gpu', (_, gpu) => {
-    dialog.showMessageBox("a", "A");
+  ipcMain.on('innerHTML', (event, arg) => {
+    dialog.showMessageBox("Message", "gpu channel detected");
   });
 });
 
