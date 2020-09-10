@@ -3,6 +3,7 @@ var electron = require('electron');
 var app = electron.app;
 var ipc = electron.ipcMain;
 var BrowserWindow = electron.BrowserWindow;
+const localShortcut = require('electron-localshortcut');
 const globalShortcut = electron.globalShortcut;
 const dialog = electron.dialog;
 
@@ -46,15 +47,11 @@ app.on('ready', function() {
     mainWindow = null;
   });
 
-  globalShortcut.register('Command+T', () => {
-    //dialog.showErrorBox("OMG", "CMD+T IS PRESSED");
-    // tabGroup.addTab({
-    //   title: 'Google',
-    //   src: 'http://google.com',
-    // });
-  });
+  localShortcut.register(mainWindow, 'Command+Q', () => {
+    app.quit()
+  })
 
-  globalShortcut.register('Command+N', () => {
+  localShortcut.register(mainWindow, 'Command+N', () => {
     mainWindow.webContents.executeJavaScript(`
       require('electron').ipcRenderer.send('gpu', document.body.innerHTML);
     `);
