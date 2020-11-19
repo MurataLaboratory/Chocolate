@@ -1,6 +1,6 @@
 // Electronの読み込み
-var electron = require('electron');
-var app = electron.app;
+const electron = require('electron');
+const app = electron.app;
 var ipcMain = electron.ipcMain;
 
 var BrowserWindow = electron.BrowserWindow;
@@ -59,10 +59,20 @@ app.on('ready', function() {
 
   globalShortcut.register('Command+E', () => {
     dialog.showMessageBox("REQUEST", "Gonna send a request");
-    const request = net.request('http://localhost:4000/')
+    let body = JSON.stringify({user_id: 1})
+    const request = net.request({
+      method: 'POST',
+      protocol: 'http:',
+      hostname: 'localhost',
+      port: 4000,
+      path: '/api/tournament/home'
+    })
     request.on('response', (response) => {
       console.log(response);
     })
+
+    request.setHeader('Content-Type', 'application/json');
+    request.write(body, 'utf-8');
     request.end();
   })
 
