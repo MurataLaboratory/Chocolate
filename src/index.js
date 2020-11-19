@@ -5,6 +5,7 @@ var ipcMain = electron.ipcMain;
 
 var BrowserWindow = electron.BrowserWindow;
 const localShortcut = require('electron-localshortcut');
+const globalShortcut = electron.globalShortcut;
 const dialog = electron.dialog;
 
 // mainWindow変数の初期化
@@ -19,6 +20,7 @@ app.on('window-all-closed', function() {
 // 画面を表示．index.htmlを読み込む
 // Close処理を行う
 app.on('ready', function() {
+  const { net } = require('electron');
   // 画面表示
   mainWindow = new BrowserWindow({
     width: 1400, 
@@ -31,12 +33,12 @@ app.on('ready', function() {
   mainWindow.loadURL('file://' + __dirname + '/index.html')
   //mainWindow.webContents.openDevTools();
 
-  mainWindow.webContents.executeJavaScript(`
-    document.addEventListener("copy", e => {
-      var copied = window.getSelection().toString();
-      console.log(copied);
-    });
-  `);
+  // mainWindow.webContents.executeJavaScript(`
+  //   document.addEventListener("copy", e => {
+  //     var copied = window.getSelection().toString();
+  //     console.log(copied);
+  //   });
+  // `);
 
   mainWindow.on('ready-to-show', function () {
     mainWindow.show();
@@ -50,23 +52,30 @@ app.on('ready', function() {
     mainWindow = null;
   });
 
-  localShortcut.register(mainWindow, 'Command+O', () => {
+  globalShortcut.register('Command+O', () => {
     dialog.showMessageBox("dev", "opened dev tools");
     mainWindow.webContents.openDevTools()
   })
 
-  localShortcut.register(mainWindow, 'Command+Q', () => {
-    app.quit()
+  globalShortcut.register('Command+E', () => {
+    dialog.showMessageBox("REQUEST", "Gonna send a request");
+    const request = net.request('http://localhost:4000/')
+    request.on('response', (response) => {
+      console.log(response);
+    })
+    request.end();
   })
 
-  localShortcut.register(mainWindow, 'Command+N', () => {
-    mainWindow.webContents.executeJavaScript(`
-      require('electron').ipcRenderer.send('innerHTML', document.body.innerHTML);
-    `);
-  });
+  globalShortcut.register('Command+G', async () => {
+    //dialog.showMessageBox("Summarize", "Obtaining innerHTML");
+    //console.log("command g is called up!");
+    //console.log(mainWindow.webContents)
+    const web = await mainWindow.webContents.executeJavaScript("document.body.innerHTML");
+    console.log(web);
+  })
 
-  ipcMain.on('innerHTML', (event, arg) => {
-    dialog.showMessageBox("Message", "gpu channel detected");
-  });
+  globalShortcut.register('Command+Q', () => {
+    app.quit()
+  })
 });
 
