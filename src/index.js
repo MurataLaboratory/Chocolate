@@ -80,9 +80,11 @@ app.on('ready', function() {
     //dialog.showMessageBox("Summarize", "Obtaining innerHTML");
     //console.log("command g is called up!");
     //console.log(mainWindow.webContents)
-    const web = await mainWindow.webContents.executeJavaScript("document.body.innerHTML");
-    console.log(web);
-  })
+    // const web = await mainWindow.webContents.executeJavaScript("document.body.innerHTML");
+    // console.log(web);
+    let body = await mainWindow.webContents.executeJavaScript("document.body");
+    console.log(body);
+  }).
 
   globalShortcut.register('Command+Q', () => {
     app.quit()
