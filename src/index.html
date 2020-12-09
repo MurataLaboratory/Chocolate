@@ -7,31 +7,29 @@
     <link rel="stylesheet" href="node_modules/electron-tabs/electron-tabs.css">
   </head>
   <body id="body">
-    <div class="etabs-tabgroup">
+    <!-- <div class="etabs-tabgroup">
       <div class="etabs-tabs"></div>
       <div class="etabs-buttons"></div>
     </div>
-    <div class="etabs-views"></div>
+    <div class="etabs-views"></div> -->
+    <webview
+      id="wv"
+      src="https://www.google.com"
+      preload="renderer.js">
+    </webview>
     
     <script>
-      const TabGroup = require("electron-tabs");
-    
-      let tabGroup = new TabGroup({
-        newTab: {
-          title: 'New Tab',
-          src: 'http://google.com',
-          visible: true,
-          active: true
-        }
-      });
-    
-      tabGroup.addTab({
-        title: 'Google',
-        src: 'http://google.com',
-        visible: true,
-        active: true
-      });
-    
+      onload = () => {
+        const webview = document.getElementById('wv');
+        webview.addEventListener('did-finish-load', function() {
+          webview.send("getContent");
+        });
+
+        webview.addEventListener('ipc-message', function(event) {
+          console.log(event["args"][0])
+        })
+        //console.log(webview)
+      };
     </script>
   </body>
 </html>

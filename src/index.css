@@ -5,6 +5,12 @@ html, body {
     padding: 0;
  }
 
+ #wv {
+    width: 70%;
+    height: 100%;
+    border-right: 2px black solid;
+ }
+
 .etabs-views {
     width: 70%;
     height: 100%;

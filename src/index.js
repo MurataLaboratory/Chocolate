@@ -76,6 +76,10 @@ app.on('ready', function() {
     request.end();
   })
 
+  globalShortcut.register('Command+D', () => {
+    mainWindow.webContents.openDevTools();
+  })
+
   globalShortcut.register('Command+G', async () => {
     //dialog.showMessageBox("Summarize", "Obtaining innerHTML");
     //console.log("command g is called up!");
