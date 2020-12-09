@@ -21,16 +21,16 @@
     <script>
       onload = () => {
         const webview = document.getElementById('wv');
-        webview.addEventListener('did-finish-load', function() {
-          webview.send("getContent");
-        });
-
-        webview.addEventListener('ipc-message', function(event) {
-          console.log(event["args"][0])
+        webview.addEventListener('dom-ready', () => {
+          console.log('dom ready')
+          webview.executeJavaScript(
+            `document.body.innerHTML`,
+            (res) => {
+              console.log(res)
+            }
+          )
         })
-        //console.log(webview)
       };
     </script>
   </body>
 </html>
-
