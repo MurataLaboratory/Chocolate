@@ -12,6 +12,7 @@
       <div class="etabs-buttons"></div>
     </div>
     <div class="etabs-views"></div> -->
+    <div id="summarization"></div>
     <webview
       id="wv"
       src="https://www.google.com"
@@ -19,14 +20,17 @@
     </webview>
     
     <script>
+      //alert(document.body.textContent);
       onload = () => {
         const webview = document.getElementById('wv');
         webview.addEventListener('dom-ready', () => {
-          console.log('dom ready')
           webview.executeJavaScript(
-            `document.body.innerHTML`,
-            (res) => {
-              console.log(res)
+            `
+            "hello"
+            `,
+            false,
+            async function(res) {
+              await console.log(res)
             }
           )
         })
