@@ -84,7 +84,7 @@ app.on('ready', function() {
     // console.log(web);
     let body = await mainWindow.webContents.executeJavaScript("document.body");
     console.log(body);
-  }).
+  })
 
   globalShortcut.register('Command+Q', () => {
     app.quit()
