@@ -15,24 +15,16 @@
     <div id="summarization"></div>
     <webview
       id="wv"
-      src="https://www.google.com"
-      preload="renderer.js">
+      src="https://www.google.com">
     </webview>
     
     <script>
-      //alert(document.body.textContent);
       onload = () => {
         const webview = document.getElementById('wv');
-        webview.addEventListener('dom-ready', () => {
-          webview.executeJavaScript(
-            `
-            "hello"
-            `,
-            false,
-            async function(res) {
-              await console.log(res)
-            }
-          )
+        const summarizationView = document.getElementById('summarization');
+        webview.addEventListener('dom-ready', async () => {
+          const bod = await webview.executeJavaScript(`document.body.textContent`)
+          summarizationView.textContent = bod
         })
       };
     </script>

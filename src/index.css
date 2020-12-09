@@ -13,11 +13,13 @@ html, body {
 
  #summarization {
      position: absolute;
-     width: 30vw;
+     width: 29vw;
      height: 100vh;
      right: 0px;
 
-     background: blue;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    word-wrap: break-word;
  }
 
 .etabs-views {
