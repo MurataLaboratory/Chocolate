@@ -23,8 +23,8 @@
         const webview = document.getElementById('wv');
         const summarizationView = document.getElementById('summarization');
         webview.addEventListener('dom-ready', async () => {
-          const bod = await webview.executeJavaScript(`document.body.textContent`)
-          summarizationView.textContent = bod
+          const bod = await webview.executeJavaScript(`document.body.innerText`)
+          summarizationView.innerText = bod
         })
       };
     </script>
