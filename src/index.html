@@ -25,7 +25,7 @@
         webview.addEventListener('dom-ready', async () => {
           const bod = await webview.executeJavaScript(`document.body.innerText`)
           summarizationView.innerText = bod
-        })
+        });
       };
     </script>
   </body>

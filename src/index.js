@@ -33,13 +33,6 @@ app.on('ready', function() {
   mainWindow.loadURL('file://' + __dirname + '/index.html')
   //mainWindow.webContents.openDevTools();
 
-  // mainWindow.webContents.executeJavaScript(`
-  //   document.addEventListener("copy", e => {
-  //     var copied = window.getSelection().toString();
-  //     console.log(copied);
-  //   });
-  // `);
-
   mainWindow.on('ready-to-show', function () {
     mainWindow.show();
     mainWindow.focus();
@@ -78,16 +71,6 @@ app.on('ready', function() {
 
   globalShortcut.register('Command+D', () => {
     mainWindow.webContents.openDevTools();
-  })
-
-  globalShortcut.register('Command+G', async () => {
-    //dialog.showMessageBox("Summarize", "Obtaining innerHTML");
-    //console.log("command g is called up!");
-    //console.log(mainWindow.webContents)
-    // const web = await mainWindow.webContents.executeJavaScript("document.body.innerHTML");
-    // console.log(web);
-    let body = await mainWindow.webContents.executeJavaScript("document.body");
-    console.log(body);
   })
 
   globalShortcut.register('Command+Q', () => {
