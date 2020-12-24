@@ -54,7 +54,7 @@ app.on('ready', function() {
     dialog.showMessageBox("REQUEST", "Gonna send a request");
     let body = JSON.stringify({user_id: 1})
     const request = net.request({
-      method: 'POST',
+      method: 'GET',
       protocol: 'http:',
       hostname: 'localhost',
       port: 4000,
@@ -75,6 +75,30 @@ app.on('ready', function() {
 
   globalShortcut.register('Command+Q', () => {
     app.quit()
+  })
+
+  ipcMain.on('message', (event, arg) => {
+    console.log(arg)
+    //mainWindow.webContents.openDevTools()
+    const body = JSON.stringify({sentence: arg})
+      const request = net.request({
+        method: 'POST',
+        url: 'http://3e2ae4368c2b.ngrok.io/'
+      })
+      
+      request.on('response', (response) => {
+        response.on('data', (chunk) => {
+          const text = chunk.toString('utf-8', 0, chunk.length)
+          console.log("=========")
+          console.log(text)
+          console.log("=========")
+          event.sender.send('reply', text)
+        })
+      })
+
+      request.setHeader('Content-Type', 'application/json');
+      request.write(body, 'utf-8');
+      request.end();
   })
 });
 

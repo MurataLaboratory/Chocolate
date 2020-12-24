@@ -15,21 +15,33 @@
     <div id="summarization"></div>
     <webview
       id="wv"
-      src="https://www.google.com">
+      src="https://www.google.com"
+      preload="preload.js">
     </webview>
     
     <script>
+      const { ipcRenderer } = require('electron')
       // 1. テキストの選択が行われたらイベント発火
       // 2. 選択されたテキストをsummarizationViewに表示
       onload = () => {
         const webview = document.getElementById('wv');
         const summarizationView = document.getElementById('summarization');
         webview.addEventListener('dom-ready', async () => {
-          const bod = await webview.executeJavaScript(`document.body.innerText`)
-          summarizationView.innerText = bod
-        });
+          //const bod = await webview.executeJavaScript(`document.body.innerText`)
+          //summarizationView.innerText = bod
+          //webview.send("ping")
+          summarizationView.innerText = "no content"
+        })
 
-        
+        webview.addEventListener("ipc-message", (event) => {
+          const channelText = event.channel
+          //summarizationView.innerText = channelText
+          ipcRenderer.send('message', channelText)
+          ipcRenderer.on('reply', (event, arg) => {
+            //alert(arg)
+            summarizationView.innerText = arg
+          })
+        })
       };
     </script>
   </body>
