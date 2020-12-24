@@ -19,6 +19,8 @@
     </webview>
     
     <script>
+      // 1. テキストの選択が行われたらイベント発火
+      // 2. 選択されたテキストをsummarizationViewに表示
       onload = () => {
         const webview = document.getElementById('wv');
         const summarizationView = document.getElementById('summarization');
@@ -26,6 +28,8 @@
           const bod = await webview.executeJavaScript(`document.body.innerText`)
           summarizationView.innerText = bod
         });
+
+        
       };
     </script>
   </body>
