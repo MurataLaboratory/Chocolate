@@ -78,12 +78,12 @@ app.on('ready', function() {
   })
 
   ipcMain.on('message', (event, arg) => {
-    console.log(arg)
+    //console.log(arg)
     //mainWindow.webContents.openDevTools()
     const body = JSON.stringify({sentence: arg})
       const request = net.request({
         method: 'POST',
-        url: 'http://3e2ae4368c2b.ngrok.io/'
+        url: 'http://5d3968a00118.ngrok.io'
       })
       
       request.on('response', (response) => {
