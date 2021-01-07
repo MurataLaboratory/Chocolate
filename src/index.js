@@ -83,7 +83,7 @@ app.on('ready', function() {
     const body = JSON.stringify({sentence: arg})
       const request = net.request({
         method: 'POST',
-        url: 'http://5d3968a00118.ngrok.io'
+        url: 'http://74b6280d6ed1.ngrok.io'
       })
       
       request.on('response', (response) => {

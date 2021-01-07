@@ -3,7 +3,26 @@ html, body {
     height: 100vh;
     margin: 0;
     padding: 0;
- }
+}
+
+#menu-bar{
+    width:100%;
+    padding:5px;
+    max-height:30px;
+    background-color:#EFF0EE;
+    color:#959595;
+    display:block;
+    white-space: nowrap;
+}
+#menu-bar input{
+    width:80%;
+    min-height:20px;
+    font-size:14px;
+}
+#menu-bar button{
+    font-size:14px;
+    min-height:20px;
+}
 
  #wv {
     width: 70%;
