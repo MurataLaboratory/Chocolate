@@ -50,25 +50,6 @@ app.on('ready', function() {
     mainWindow.webContents.openDevTools()
   })
 
-  globalShortcut.register('Command+E', () => {
-    dialog.showMessageBox("REQUEST", "Gonna send a request");
-    let body = JSON.stringify({user_id: 1})
-    const request = net.request({
-      method: 'GET',
-      protocol: 'http:',
-      hostname: 'localhost',
-      port: 4000,
-      path: '/api/tournament/home'
-    })
-    request.on('response', (response) => {
-      console.log(response);
-    })
-
-    request.setHeader('Content-Type', 'application/json');
-    request.write(body, 'utf-8');
-    request.end();
-  })
-
   globalShortcut.register('Command+D', () => {
     mainWindow.webContents.openDevTools();
   })
@@ -82,8 +63,8 @@ app.on('ready', function() {
     //mainWindow.webContents.openDevTools()
     const body = JSON.stringify({sentence: arg})
       const request = net.request({
-        method: 'POST',
-        url: 'http://74b6280d6ed1.ngrok.io'
+        method: 'GET',
+        url: 'http://78b3873f54a2.ngrok.io'
       })
       
       request.on('response', (response) => {
