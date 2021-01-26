@@ -17,6 +17,7 @@
       <input type="text" id="url"></input>
       <button onclick="load();">Load</button>
       <button onclick="opendev();">Open Dev Tool</button>
+      <button onclick="toggle();">Toggle</button>
     </div>
     <div id="summarization"></div>
     <webview
@@ -26,6 +27,8 @@
     </webview>
     
     <script>
+      let isShowingSummarizationArea = true
+
       const { ipcRenderer } = require('electron')
       // 1. テキストの選択が行われたらイベント発火
       // 2. 選択されたテキストをsummarizationViewに表示
@@ -67,6 +70,20 @@
       function back() {
         const webview = document.getElementById('wv')
         webview.goBack()
+      }
+
+      function toggle() {
+        const webview = document.getElementById('wv')
+        const summarizationView = document.getElementById('summarization')
+        if (isShowingSummarizationArea) {
+          summarizationView.style.display = "none"
+          webview.style.width = '100vw';
+          isShowingSummarizationArea = false;
+        } else {
+          summarizationView.style.display = "block"
+          webview.style.width = '70vw';
+          isShowingSummarizationArea = true;
+        }
       }
     </script>
   </body>
