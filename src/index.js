@@ -64,7 +64,7 @@ app.on('ready', function() {
     const body = JSON.stringify({sentence: arg})
       const request = net.request({
         method: 'GET',
-        url: 'http://78b3873f54a2.ngrok.io'
+        url: 'http://b899509f3ad0.ngrok.io'
       })
       
       request.on('response', (response) => {
